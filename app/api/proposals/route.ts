@@ -16,12 +16,15 @@ export async function GET() {
           scoreJson: true,
           createdAt: true
         }
-      }
+      },
+      feedback: true
     },
     orderBy: {
       submittedAt: 'desc'
     }
   });
+
+  console.log('Fetched proposals:', JSON.stringify(proposals, null, 2));
 
   return NextResponse.json({ proposals });
 }

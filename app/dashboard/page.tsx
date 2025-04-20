@@ -20,6 +20,7 @@ type Proposal = {
     };
     createdAt: string;
   } | null;
+  feedback: string;
 };
 
 export default function DashboardPage() {
@@ -81,14 +82,21 @@ export default function DashboardPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800"
-                      title="Download file pendukung"
+                      title={`Download file: ${p.documentUrl}`}
+                      onClick={(e) => {
+                        if (!p.documentUrl.startsWith('http')) {
+                          e.preventDefault();
+                          alert('Invalid URL: ' + p.documentUrl);
+                        }
+                      }}
                     >
                       <FileDown size={18} />
                     </a>
                   ) : (
-                    <span className="text-gray-400">-</span>
+                    <span className="text-gray-400" title="No file uploaded">-</span>
                   )}
                 </td>
+                <td className="p-2">{p.feedback ?? '-'}</td>
               </tr>
             ))}
           </tbody>

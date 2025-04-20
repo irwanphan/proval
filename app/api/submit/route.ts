@@ -31,10 +31,22 @@ export async function POST(req: NextRequest) {
         const safeFileName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
         const blobName = `proposals/${timestamp}-${safeFileName}`;
         
+        console.log('Uploading file:', {
+          originalName: file.name,
+          safeFileName,
+          blobName,
+          size: file.size
+        });
+
         const blob = await put(blobName, file, {
           access: 'public',
         });
         documentUrl = blob.url;
+
+        console.log('File uploaded successfully:', {
+          url: documentUrl,
+          blob
+        });
       }
 
       // Simpan ke DB
