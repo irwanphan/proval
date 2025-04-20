@@ -33,11 +33,15 @@ export default function DashboardPage() {
       });
   }, []);
 
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <main className="p-6 max-w-5xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">Dashboard Peserta</h1>
-      {loading ? (
-        <p>Loading...</p>
+      {proposals.length === 0 ? (
+        <p>No proposals found</p>
       ) : (
         <table className="w-full border">
           <thead>
@@ -71,7 +75,7 @@ export default function DashboardPage() {
         </table>
       )}
 
-      <button className="bg-blue-600 text-white px-4 py-2" onClick={() => router.push('/submit')}>submit proposal</button>
+      <button className="bg-blue-600 text-white px-4 py-2 mt-4 hover:bg-blue-700 rounded-md transition-colors duration-300" onClick={() => router.push('/submit')}>submit proposal</button>
     </main>
   );
 }
