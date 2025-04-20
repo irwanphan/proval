@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FileDown } from 'lucide-react';
-
+import Link from 'next/link';
 type Proposal = {
   id: string;
   title: string;
@@ -41,7 +41,10 @@ export default function DashboardPage() {
 
   return (
     <main className="p-6 max-w-5xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Dashboard Peserta</h1>
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="text-2xl font-semibold">Dashboard Peserta</h1>
+        <Link href="/" className="font-medium text-blue-600 hover:text-blue-700 transition-colors duration-200">About This Project</Link>
+      </div>
       {proposals.length === 0 ? (
         <p>No proposals found</p>
       ) : (
