@@ -3,8 +3,18 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   const proposals = await prisma.proposal.findMany({
-    include: {
-      aiScore: true
+    select: {
+      id: true,
+      title: true,
+      status: true,
+      documentUrl: true,
+      aiScore: {
+        select: {
+          classification: true,
+          scoreJson: true,
+          createdAt: true
+        }
+      }
     },
     orderBy: {
       submittedAt: 'desc'

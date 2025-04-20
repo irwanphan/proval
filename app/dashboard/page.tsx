@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { FileDown } from 'lucide-react';
 
 type Proposal = {
   id: string;
   title: string;
   status: string;
+  documentUrl: string;
   aiScore: {
     classification: string;
     scoreJson: {
@@ -54,6 +56,7 @@ export default function DashboardPage() {
               <th className="p-2">NPS</th>
               <th className="p-2">LTV</th>
               <th className="p-2">Retention</th>
+              <th className="p-2">File Pendukung</th>
               <th className="p-2">Feedback</th>
             </tr>
           </thead>
@@ -68,7 +71,21 @@ export default function DashboardPage() {
                 <td className="p-2">{p.aiScore?.scoreJson.nps ?? '-'}</td>
                 <td className="p-2">{p.aiScore?.scoreJson.ltv ?? '-'}</td>
                 <td className="p-2">{p.aiScore?.scoreJson.retention ?? '-'}</td>
-                <td className="p-2">{p.aiScore ? p.aiScore.classification || '-' : '-'}</td>
+                <td className="p-2 text-center">
+                  {p.documentUrl ? (
+                    <a 
+                      href={p.documentUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800"
+                      title="Download file pendukung"
+                    >
+                      <FileDown size={18} />
+                    </a>
+                  ) : (
+                    <span className="text-gray-400">-</span>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
