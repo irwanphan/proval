@@ -11,7 +11,7 @@ model User {
   id          String   @id @default(cuid())
   email       String   @unique
   name        String?
-  password    String?  // optional kalau pakai SSO
+  password    String   // optional kalau pakai SSO
   role        Role     @default(PARTICIPANT)
   proposals   Proposal[]
   juryEvaluations JuryEvaluation[]
@@ -25,11 +25,11 @@ model Proposal {
   user         User      @relation(fields: [userId], references: [id])
   userId       String
   title        String
-  problem      String
-  solution     String
+  problem      String    @db.Text
+  solution     String    @db.Text
   documentUrl  String    // link ke file di S3/Supabase
   status       ProposalStatus @default(SUBMITTED)
-  feedback     String?
+  feedback     String?   @db.Text
   submittedAt  DateTime  @default(now())
   aiScore      AiEvaluation?
   revisions    Revision[]
