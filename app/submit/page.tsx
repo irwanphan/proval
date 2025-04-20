@@ -47,7 +47,10 @@ export default function SubmitProposalPage() {
 
   return (
     <main className="p-6 max-w-3xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4"><Link href="/dashboard" className="text-blue-600 hover:text-blue-700"><ChevronLeft /> Submit Proposal</Link></h1>
+      <h1 className="text-2xl font-bold mb-4 flex items-center gap-2">
+        <Link href="/dashboard" className="hover:text-gray-400 transition-colors duration-200"><ChevronLeft /></Link>
+        Submit Proposal
+      </h1>
       <p className="text-sm text-gray-500 mb-4">
         Data default digunakan untuk kebutuhan pengujian, silahkan isi data yang sesuai untuk penggunaan yang sebenarnya atau simulasi lanjutannya.
       </p>
@@ -80,7 +83,7 @@ export default function SubmitProposalPage() {
           <input type="file" onChange={(e) => setFile(e.target.files?.[0] || null)} className="w-full border p-2" />
         </fieldset>
         <button type="submit" disabled={loading} 
-          className="bg-blue-600 text-white px-4 py-2 rounded-md w-full hover:bg-blue-700 disabled:opacity-50">
+          className="bg-blue-600 text-white px-4 py-2 rounded-md w-full hover:bg-blue-700 disabled:opacity-50 transition-colors duration-200">
           {loading ? 'Submitting...' : 'Submit'}
         </button>
       </form>
