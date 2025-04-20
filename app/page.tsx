@@ -13,6 +13,9 @@ export default function Home() {
           dampak dan kelayakan ide Anda. Dapatkan feedback cepat dan objektif untuk 
           meningkatkan kualitas proposal.
         </p>
+        <p className="text-lg text-gray-700 mb-8">
+          <span className="font-bold">Note:</span> Platform ini masih dalam tahap pembuktian dan pengembangan (Proof of Concept).
+        </p>
 
         <Link 
           href="/dashboard" 
