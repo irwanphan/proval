@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
       user: {
         connectOrCreate: {
           where: { email },
-          create: { email, name },
+          create: { email, name, password: '' },
         },
       },
       title,
