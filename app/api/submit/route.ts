@@ -16,7 +16,11 @@ export async function POST(req: NextRequest) {
     // Handle file upload jika ada
     let documentUrl = '';
     if (file && file.name) {
-      const blob = await put(file.name, file, {
+      const timestamp = Date.now();
+      const safeFileName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+      const blobName = `proposals/${timestamp}-${safeFileName}`;
+      
+      const blob = await put(blobName, file, {
         access: 'public',
       });
       documentUrl = blob.url;
