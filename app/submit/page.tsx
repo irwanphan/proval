@@ -15,17 +15,34 @@ export default function SubmitProposalPage() {
   });
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+  const [emailError, setEmailError] = useState('');
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    
+    if (name === 'email') {
+      if (!value.endsWith('@pegadaian.com')) {
+        setEmailError('Email harus menggunakan domain @pegadaian.com');
+      } else {
+        setEmailError('');
+      }
+    }
+    
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      setLoading(true);
+    
+    if (!formData.email.endsWith('@pegadaian.com')) {
+      setEmailError('Email harus menggunakan domain @pegadaian.com');
+      return;
+    }
+    
+    setLoading(true);
 
+    try {
       const form = new FormData();
       Object.entries(formData).forEach(([key, val]) => form.append(key, val));
       if (file) form.append('file', file);
@@ -63,7 +80,20 @@ export default function SubmitProposalPage() {
           <label className="block">Nama</label>
           <input name="name" placeholder="Your Name" required value={formData.name} onChange={handleChange} className="w-full border p-2" />
           <label className="block">Email</label>
-          <input name="email" placeholder="Your Email" required value={formData.email} onChange={handleChange} className="w-full border p-2" />
+          <div className="space-y-1">
+            <input 
+              name="email" 
+              type="email" 
+              placeholder="nama@pegadaian.com" 
+              pattern=".+@pegadaian\.com$"
+              title="Gunakan email dengan domain @pegadaian.com"
+              required 
+              value={formData.email} 
+              onChange={handleChange} 
+              className={`w-full border p-2 ${emailError ? 'border-red-500' : ''}`}
+            />
+            {emailError && <p className="text-red-500 text-sm">{emailError}</p>}
+          </div>
         </fieldset>
         <fieldset className="space-y-2 p-4 border rounded-md">
           <legend>Data Proposal</legend>
