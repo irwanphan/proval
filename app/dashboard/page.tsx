@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 type Proposal = {
   id: string;
@@ -22,7 +23,7 @@ type Proposal = {
 export default function DashboardPage() {
   const [proposals, setProposals] = useState<Proposal[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const router = useRouter();
   useEffect(() => {
     fetch('/api/proposals')
       .then((res) => res.json())
@@ -69,6 +70,8 @@ export default function DashboardPage() {
           </tbody>
         </table>
       )}
+
+      <button className="bg-blue-600 text-white px-4 py-2" onClick={() => router.push('/submit')}>submit proposal</button>
     </main>
   );
 }

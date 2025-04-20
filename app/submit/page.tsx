@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation';
 
 export default function SubmitProposalPage() {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ export default function SubmitProposalPage() {
   });
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,20 +21,26 @@ export default function SubmitProposalPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    const form = new FormData();
-    Object.entries(formData).forEach(([key, val]) => form.append(key, val));
-    if (file) form.append('file', file);
+      const form = new FormData();
+      Object.entries(formData).forEach(([key, val]) => form.append(key, val));
+      if (file) form.append('file', file);
 
-    const res = await fetch('/api/submit', {
-      method: 'POST',
-      body: form
-    });
+      const res = await fetch('/api/submit', {
+        method: 'POST',
+        body: form
+      });
 
-    const result = await res.json();
-    alert(result.message);
-    setLoading(false);
+      const result = await res.json();
+      alert(result.message);
+    } catch (error) {
+      alert('Gagal submit proposal ' + error);
+    } finally {
+      setLoading(false);
+      router.push('/dashboard');
+    }
   };
 
   return (
