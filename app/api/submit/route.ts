@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma';
 import { writeFile } from 'fs/promises';
 import path from 'path';
 
+import { evaluateProposal } from '@/lib/evaluateWithAI';
+
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
   const name = formData.get('name') as string;
@@ -36,6 +38,17 @@ export async function POST(req: NextRequest) {
       documentUrl: `/uploads/${filename}`,
       status: 'SUBMITTED'
     },
+  });
+
+  const aiResult = await evaluateProposal({ title, problem, solution });
+
+  await prisma.aiEvaluation.create({
+    data: {
+      proposalId: proposal.id,
+      scoreJson: aiResult.scores,
+      classification: aiResult.classification,
+      flagged: false
+    }
   });
 
   return NextResponse.json({ message: 'Proposal submitted successfully', id: proposal.id });
