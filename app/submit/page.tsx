@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { ChevronLeft } from 'lucide-react';
 
 export default function SubmitProposalPage() {
   const [formData, setFormData] = useState({
@@ -44,8 +46,8 @@ export default function SubmitProposalPage() {
   };
 
   return (
-    <main className="p-6 max-w-xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Submit Proposal</h1>
+    <main className="p-6 max-w-3xl mx-auto">
+      <h1 className="text-2xl font-bold mb-4"><Link href="/dashboard" className="text-blue-600 hover:text-blue-700"><ChevronLeft /> Submit Proposal</Link></h1>
       <p className="text-sm text-gray-500 mb-4">
         Data default digunakan untuk kebutuhan pengujian, silahkan isi data yang sesuai untuk penggunaan yang sebenarnya atau simulasi lanjutannya.
       </p>
