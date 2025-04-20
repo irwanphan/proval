@@ -67,14 +67,17 @@ export async function POST(req: NextRequest) {
       });
 
       const aiResult = await evaluateProposal({ title, problem, solution });
-
+      
       await prisma.aiEvaluation.create({
         data: {
           proposalId: proposal.id,
-          scoreJson: aiResult.scores,
-          classification: aiResult.classification,
-          flagged: false
-        }
+          classification: aiResult.classification ?? "Unknown",
+          scoreJson: {
+            ...aiResult.scores,
+            feedback: aiResult.feedback
+          },
+          flagged: false,
+        },
       });
 
       return NextResponse.json({ message: 'Proposal submitted successfully', id: proposal.id });

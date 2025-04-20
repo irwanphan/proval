@@ -18,9 +18,14 @@ Solusi: ${solution}
 
 Tugas Anda adalah:
 1. Tentukan apakah ide ini termasuk "Breakthrough" atau "Improvement".
-2. Berikan feedback singkat (2-3 kalimat).
-3. Nilai proposal dari sisi dampak bisnis dengan format JSON berikut:
-
+2. Berikan feedback yang membantu pengembangan ide ini.
+3. Berikan skoring dari 0-10 untuk parameter berikut: 
+- Dampak ke OSL
+- Dampak ke NPL
+- Meningkatkan adopsi pelanggan
+- Kecepatan implementasi
+- Potensi monetisasi
+Format jawaban dalam JSON:
 {
   "classification": "Breakthrough / Improvement",
   "feedback": "Isi feedback",

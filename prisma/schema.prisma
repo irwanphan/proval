@@ -44,8 +44,9 @@ model AiEvaluation {
   proposalId  String   @unique
   scoreJson   Json     // JSON hasil skoring
   classification String // Breakthrough / Improvement
-  flagged      Boolean @default(false) // plagiarisme / duplikat
-  createdAt    DateTime @default(now())
+  feedback    String?  // Feedback dari AI
+  flagged     Boolean @default(false) // plagiarisme / duplikat
+  createdAt   DateTime @default(now())
 
   @@map("ai_evaluations")
 }

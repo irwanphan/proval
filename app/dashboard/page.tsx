@@ -17,10 +17,10 @@ type Proposal = {
       nps: number;
       ltv: number;
       retention: number;
+      feedback: string;
     };
     createdAt: string;
   } | null;
-  feedback: string;
 };
 
 export default function DashboardPage() {
@@ -52,16 +52,16 @@ export default function DashboardPage() {
         <table className="w-full border">
           <thead>
             <tr className="bg-gray-100">
-              <th className="p-2 text-left">Judul</th>
-              <th className="p-2">Status</th>
-              <th className="p-2">Klasifikasi</th>
-              <th className="p-2">OSL</th>
-              <th className="p-2">NPL</th>
-              <th className="p-2">NPS</th>
-              <th className="p-2">LTV</th>
-              <th className="p-2">Retention</th>
-              <th className="p-2">File Pendukung</th>
-              <th className="p-2">Feedback</th>
+              <th className="p-2 text-sm text-left">Judul</th>
+              <th className="p-2 text-sm">Status</th>
+              <th className="p-2 text-sm">Klasifikasi</th>
+              <th className="p-2 text-sm">OSL</th>
+              <th className="p-2 text-sm">NPL</th>
+              <th className="p-2 text-sm">NPS</th>
+              <th className="p-2 text-sm">LTV</th>
+              <th className="p-2 text-sm">Retention</th>
+              <th className="p-2 text-sm">File Pendukung</th>
+              <th className="p-2 text-sm">Feedback</th>
             </tr>
           </thead>
           <tbody>
@@ -96,7 +96,11 @@ export default function DashboardPage() {
                     <span className="text-gray-400" title="No file uploaded">-</span>
                   )}
                 </td>
-                <td className="p-2">{p.feedback ?? '-'}</td>
+                <td className="p-2">
+                  <p className='text-xs'>
+                    {p.aiScore?.scoreJson.feedback ?? '-'}
+                  </p>
+                </td>
               </tr>
             ))}
           </tbody>
